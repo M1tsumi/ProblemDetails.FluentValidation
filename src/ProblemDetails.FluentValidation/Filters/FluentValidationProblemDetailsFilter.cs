@@ -3,10 +3,6 @@ using Microsoft.AspNetCore.Http;
 
 namespace ProblemDetails.FluentValidation;
 
-/// <summary>
-/// Minimal API endpoint filter that validates the request using FluentValidation
-/// and returns a standard RFC 9457 ProblemDetails response on failure.
-/// </summary>
 public class FluentValidationProblemDetailsFilter : IEndpointFilter
 {
     public async ValueTask<object?> InvokeAsync(EndpointFilterInvocationContext context, EndpointFilterDelegate next)
@@ -29,28 +25,44 @@ public class FluentValidationProblemDetailsFilter : IEndpointFilter
 
             if (!result.IsValid)
             {
-                FluentValidationProblemDetailsOptions? options = null;
-
-                if (httpContext.RequestServices is not null)
-                {
-                    options = httpContext.RequestServices
-                        .GetService(typeof(FluentValidationProblemDetailsOptions))
-                        as FluentValidationProblemDetailsOptions;
-                }
-
-                options ??= new FluentValidationProblemDetailsOptions();
-
-                var mapper = options.Mapper ?? new DefaultFluentValidationProblemDetailsMapper();
+                var options = ResolveOptions(httpContext);
+                var mapper = ResolveMapper(httpContext, options);
                 var problem = mapper.Map(result.Errors, httpContext, options);
 
                 httpContext.Response.StatusCode = problem.Status ?? StatusCodes.Status422UnprocessableEntity;
-
-                await httpContext.Response.WriteAsJsonAsync(problem, (System.Text.Json.JsonSerializerOptions?)null);
+                await httpContext.Response.WriteAsJsonAsync(problem, options.JsonSerializerOptions);
                 httpContext.Response.ContentType = "application/problem+json";
                 return null;
             }
         }
 
         return await next(context);
+    }
+
+    private static FluentValidationProblemDetailsOptions ResolveOptions(HttpContext context)
+    {
+        if (context.RequestServices is not null)
+        {
+            var options = context.RequestServices.GetService(typeof(FluentValidationProblemDetailsOptions)) as FluentValidationProblemDetailsOptions;
+            if (options is not null)
+                return options;
+
+            var ioptions = context.RequestServices.GetService(typeof(Microsoft.Extensions.Options.IOptions<FluentValidationProblemDetailsOptions>)) as Microsoft.Extensions.Options.IOptions<FluentValidationProblemDetailsOptions>;
+            if (ioptions is not null)
+                return ioptions.Value;
+        }
+
+        return new FluentValidationProblemDetailsOptions();
+    }
+
+    private static IFluentValidationProblemDetailsMapper ResolveMapper(HttpContext context, FluentValidationProblemDetailsOptions options)
+    {
+        if (options.Mapper is not null)
+            return options.Mapper;
+
+        if (context.RequestServices?.GetService(typeof(IFluentValidationProblemDetailsMapper)) is IFluentValidationProblemDetailsMapper mapper)
+            return mapper;
+
+        return new DefaultFluentValidationProblemDetailsMapper();
     }
 }

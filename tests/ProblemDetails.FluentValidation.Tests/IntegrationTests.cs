@@ -76,16 +76,14 @@ public class IntegrationTests
         httpContext.RequestServices = serviceProvider;
 
         // Build minimal API filter context
-        var endpointMetadata = new EndpointMetadataCollection();
         var endpoint = new Endpoint(
-            _ => Task.FromResult<object?>("ok"),
-            endpointMetadata,
+            _ => Task.CompletedTask,
+            new EndpointMetadataCollection(),
             "test");
         httpContext.SetEndpoint(endpoint);
 
         var filter = new FluentValidationProblemDetailsFilter();
 
-        // Simulate an endpoint invocation with a TestRequest argument
         var filterContext = new DefaultEndpointFilterInvocationContext(httpContext, new TestRequest { Name = "" });
 
         var result = await filter.InvokeAsync(filterContext, _ => new ValueTask<object?>("ok"));

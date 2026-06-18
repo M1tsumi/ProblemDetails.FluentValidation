@@ -52,7 +52,7 @@ public class MapperTests
 
         Assert.Equal(2, result.Errors.Count);
         Assert.Equal(2, result.Errors["Email"].Length);
-        Assert.Equal(1, result.Errors["Name"].Length);
+        Assert.Single(result.Errors["Name"]);
     }
 
     [Fact]

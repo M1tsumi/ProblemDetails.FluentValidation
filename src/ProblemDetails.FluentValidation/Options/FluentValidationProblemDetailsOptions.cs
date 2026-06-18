@@ -47,6 +47,7 @@ public class FluentValidationProblemDetailsOptions
 
     /// <summary>
     /// Replace the default mapper with a custom implementation.
+    /// When set, this takes precedence over a mapper registered in DI.
     /// </summary>
     public IFluentValidationProblemDetailsMapper? Mapper { get; set; }
 
@@ -55,4 +56,10 @@ public class FluentValidationProblemDetailsOptions
     /// Use this to add custom enrichment like tenant ID, correlation ID, etc.
     /// </summary>
     public Action<ProblemDetail, HttpContext, IEnumerable<ValidationFailure>>? OnProblemDetailsCreated { get; set; }
+
+    /// <summary>
+    /// JSON serialization options used when writing the ProblemDetails response.
+    /// When null (default), System.Text.Json's default settings are used.
+    /// </summary>
+    public System.Text.Json.JsonSerializerOptions? JsonSerializerOptions { get; set; }
 }
