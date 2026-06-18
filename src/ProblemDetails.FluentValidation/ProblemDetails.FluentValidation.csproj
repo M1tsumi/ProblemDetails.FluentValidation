@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>12</LangVersion>
+
+    <PackageId>ProblemDetails.FluentValidation</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>M1tsumi</Authors>
+    <Description>RFC 9457 / RFC 7807 ProblemDetails error responses for FluentValidation in ASP.NET Core. Drop-in middleware that maps FluentValidation ValidationResult to standard application/problem+json responses with field-level errors, trace ID, and request ID. Works with both Controllers and Minimal APIs.</Description>
+    <PackageTags>problemdetails;fluentvalidation;rfc7807;rfc9457;aspnetcore;validation;api;error-handling;middleware</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/M1tsumi/ProblemDetails.FluentValidation</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/M1tsumi/ProblemDetails.FluentValidation</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="True" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="FluentValidation" Version="[11.0.0,13.0.0)" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+  </ItemGroup>
+
+</Project>

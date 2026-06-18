@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/samples/">
+    <Project Path="samples/SampleApi/SampleApi.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/ProblemDetails.FluentValidation/ProblemDetails.FluentValidation.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/ProblemDetails.FluentValidation.Tests/ProblemDetails.FluentValidation.Tests.csproj" />
+  </Folder>
+</Solution>

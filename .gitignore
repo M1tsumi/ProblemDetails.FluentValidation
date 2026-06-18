@@ -1,0 +1,11 @@
+bin/
+obj/
+*.user
+*.suo
+*.sln.DotSettings
+.vs/
+*.nupkg
+*.snupkg
+packages/
+.DS_Store
+Thumbs.db
