@@ -9,12 +9,16 @@
     <PackageId>ProblemDetails.FluentValidation</PackageId>
     <Version>1.0.0</Version>
     <Authors>M1tsumi</Authors>
-    <Description>RFC 9457 / RFC 7807 ProblemDetails error responses for FluentValidation in ASP.NET Core. Drop-in middleware that maps FluentValidation ValidationResult to standard application/problem+json responses with field-level errors, trace ID, and request ID. Works with both Controllers and Minimal APIs.</Description>
-    <PackageTags>problemdetails;fluentvalidation;rfc7807;rfc9457;aspnetcore;validation;api;error-handling;middleware</PackageTags>
+    <Description>RFC 9457 (RFC 7807) ProblemDetails error responses for FluentValidation in ASP.NET Core. Middleware that maps FluentValidation ValidationException to standard application/problem+json responses with field-level errors, trace ID, and request ID. Works with Controllers and Minimal APIs.</Description>
+    <PackageTags>problemdetails;fluentvalidation;validation;rfc7807;rfc9457;aspnetcore;error-handling;middleware;minimal-api;api</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/M1tsumi/ProblemDetails.FluentValidation</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
     <PackageProjectUrl>https://github.com/M1tsumi/ProblemDetails.FluentValidation</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageReleaseNotes>https://github.com/M1tsumi/ProblemDetails.FluentValidation/blob/main/CHANGELOG.md</PackageReleaseNotes>
+    <Copyright>Copyright (c) 2026 M1tsumi</Copyright>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -26,6 +30,7 @@
 
   <ItemGroup>
     <None Include="..\..\README.md" Pack="True" PackagePath="\" />
+    <None Include="..\..\icon.png" Pack="True" PackagePath="\" />
   </ItemGroup>
 
   <ItemGroup>
